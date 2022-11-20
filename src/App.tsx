@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {useDispatch} from 'react-redux';
+
+
+import {useAppDispatch, useAppSelector} from './store';
+
+import {increment, decrement, amountBy} from './store/slices/counterSlice';
+import {useEffect} from 'react';
+import {getUser} from './store/slices/userSlice';
+
 
 function App() {
+
+    const dispatch = useAppDispatch();
+
+    const value = useAppSelector( function callback(state){
+        return state.user;
+    });
+
+
+    useEffect( () => {
+        console.log(value, 'USER')
+    }, [value] )
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+        <button onClick={ () => {
+            dispatch(getUser());
+        } } >getUser</button>
     </div>
   );
 }
 
 export default App;
+
+
+
+
